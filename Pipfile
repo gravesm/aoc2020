@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+click = "*"
+colorama = "*"
+
+[dev-packages]
+flake8 = "*"
+black = "*"
+pytest = "*"
+pytest-cov = "*"
+
+[requires]
+python_version = "3.9"
+
+[scripts]
+aoc = "python -c \"from aoc.cli import main; main()\""
+
+[pipenv]
+allow_prereleases = true
