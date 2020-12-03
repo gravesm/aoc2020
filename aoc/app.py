@@ -40,8 +40,7 @@ def slope(data, x, y):
         line = line.strip()
         lineno += 1
         pos += x
-        while len(line) <= pos:
-            line += line
-        if line[pos] == "#":
+        lineln = len(line)
+        if line[pos % lineln] == "#":
             trees += 1
     return trees
