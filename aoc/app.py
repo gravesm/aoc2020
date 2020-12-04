@@ -1,6 +1,7 @@
 from functools import reduce
 from itertools import permutations
 import operator
+import re
 
 
 def day1(nums, r=2):
@@ -44,3 +45,34 @@ def slope(data, x, y):
         if line[pos % lineln] == "#":
             trees += 1
     return trees
+
+
+def make_passports(passports):
+    for passport in passports:
+        passport = passport.split()
+        yield dict([field.split(":") for field in passport])
+
+
+def pp_required_fields(passport):
+    required = {"ecl", "pid", "eyr", "hcl", "byr", "iyr", "hgt"}
+    return set(passport.keys()) >= required
+
+
+def pp_valid_fields(passport):
+    try:
+        assert (
+            (1920 <= int(passport["byr"]) <= 2002)
+            and (2010 <= int(passport["iyr"]) <= 2020)
+            and (2020 <= int(passport["eyr"]) <= 2030)
+        )
+        m = re.match(r"^(\d+)(in|cm)$", passport["hgt"])
+        if m.group(2) == "in":
+            assert 59 <= int(m.group(1)) <= 76
+        if m.group(2) == "cm":
+            assert 150 <= int(m.group(1)) <= 193
+        assert re.match(r"^#[\dabcdef]{6}$", passport["hcl"])
+        assert passport["ecl"] in ("amb", "blu", "brn", "gry", "grn", "hzl", "oth")
+        assert re.match(r"^\d{9}$", passport["pid"])
+    except Exception:
+        return False
+    return True

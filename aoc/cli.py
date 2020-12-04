@@ -46,3 +46,14 @@ def day3(data):
         data.seek(0)
         total *= app.slope(data, *s)
     click.echo(total)
+
+
+@main.command(name="4")
+@click.argument("data", type=click.File("r"), default="-")
+def day4(data):
+    """Run day 4"""
+    passports = list(app.make_passports(data.read().split("\n\n")))
+    has_required = list(filter(app.pp_required_fields, passports))
+    click.echo(len(has_required))
+    is_valid = list(filter(app.pp_valid_fields, has_required))
+    click.echo(len(is_valid))

@@ -32,3 +32,9 @@ def test_day3():
     runner = CliRunner()
     result = runner.invoke(cli.day3, ["tests/fixtures/input3"])
     assert result.output == "7\n336\n"
+
+
+def test_day4():
+    runner = CliRunner()
+    result = runner.invoke(cli.day4, ["tests/fixtures/input4"])
+    assert result.output == "2\n2\n"
