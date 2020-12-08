@@ -57,3 +57,23 @@ def day4(data):
     click.echo(len(has_required))
     is_valid = list(filter(app.pp_valid_fields, has_required))
     click.echo(len(is_valid))
+
+
+@main.command(name="5")
+@click.argument("data", type=click.File("r"), default="-")
+def day5(data):
+    tbl = str.maketrans(
+        {ord("F"): ord("0"), ord("B"): ord("1"), ord("L"): ord("0"), ord("R"): ord("1")}
+    )
+    tickets = []
+    for ticket in data:
+        idx = min([ticket.index(c) for c in "LR" if c in ticket])
+        row = app.bsearch(range(0, 128), ticket[0:idx].translate(tbl))
+        col = app.bsearch(range(0, 8), ticket[idx:].translate(tbl))
+        tickets.append(row * 8 + col)
+    tickets.sort()
+    click.echo(tickets[-1])
+    for i, t in enumerate(tickets):
+        if tickets[i + 1] - t != 1:
+            click.echo(t + 1)
+            return

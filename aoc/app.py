@@ -76,3 +76,13 @@ def pp_valid_fields(passport):
     except Exception:
         return False
     return True
+
+
+def bsearch(rng, code):
+    if len(rng) == 1:
+        return rng.start
+    mid = rng.start + len(rng) // 2
+    if code[0] == "0":
+        return bsearch(range(rng.start, mid), code[1:])
+    else:
+        return bsearch(range(mid, rng.stop), code[1:])
