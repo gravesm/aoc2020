@@ -1,3 +1,6 @@
+from functools import reduce
+from operator import and_
+
 import click
 
 from aoc import app
@@ -77,3 +80,17 @@ def day5(data):
         if tickets[i + 1] - t != 1:
             click.echo(t + 1)
             return
+
+
+@main.command(name="6")
+@click.argument("data", type=click.File("r"), default="-")
+def day6(data):
+    anyone = everyone = 0
+    groups = data.read().split("\n\n")
+    for group in groups:
+        s = set("".join(group.split()))
+        anyone += len(s)
+        s = reduce(and_, map(set, group.split()))
+        everyone += len(s)
+    click.echo(anyone)
+    click.echo(everyone)

@@ -44,3 +44,9 @@ def test_day5():
     runner = CliRunner()
     result = runner.invoke(cli.day5, ["tests/fixtures/input5"])
     assert result.output.startswith("820")
+
+
+def test_day6():
+    runner = CliRunner()
+    result = runner.invoke(cli.day6, ["tests/fixtures/input6"])
+    assert result.output == "11\n6\n"
